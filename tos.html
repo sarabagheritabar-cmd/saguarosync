@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saguaro Sync - Brutal Digital Transformation</title>
+  <link rel="icon" href="favicon.ico">
+  <style>
+    :root {
+      --primary-color: #6031cd;
+      --primary-light-color: #a28bd9;
+      --primary-dark-color: #43228f;
+      --secondary-color: #9e4bb3;
+      --accent-color: #a8d246;
+      --hero-bg-color: #1a1a2e;
+      --surface-color: #fbfbfb;
+      --text-main-color: #111111;
+      --text-light-color: #ffffff;
+      --border-radius: 16px;
+      --section-spacing: 80px;
+    }
+
+    /* Base Brutalist Styles */
+    body {
+      font-family: 'Roboto Mono', monospace;
+      color: var(--text-main-color);
+      margin: 0;
+      background-color: var(--surface-color);
+      line-height: 1.6;
+      font-weight: 400; /* bodyWeight */
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Crimson Pro', serif;
+      font-weight: 700; /* headingWeight */
+      color: var(--text-main-color);
+      margin-top: 0;
+      margin-bottom: 24px;
+    }
+
+    h1 { font-size: 3em; }
+    h2 { font-size: 2.5em; }
+    h3 { font-size: 2em; }
+    h4 { font-size: 1.5em; }
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    section {
+      padding: var(--section-spacing) 0;
+    }
+
+    /* Header */
+    .header-section {
+      background-color: var(--surface-color);
+      color: var(--text-main-color);
+      padding: 20px 0;
+      border-bottom: 8px solid var(--primary-dark-color); /* Brutalist thick bottom border */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+    .header-section .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .header-logo {
+      font-family: 'Crimson Pro', serif;
+      font-weight: 700;
+      font-size: 1.8em;
+      color: var(--text-main-color);
+      text-transform: uppercase;
+      flex-grow: 1;
+      text-align: center;
+      order: 2; /* Centered on mobile */
+      width: 100%; /* Take full width on mobile */
+      margin-bottom: 10px;
+    }
+
+    .main-nav {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: none; /* Hidden by default on mobile */
+      width: 100%;
+      order: 3;
+      text-align: center;
+    }
+    .main-nav.active {
+      display: block; /* Show when active */
+    }
+    .main-nav li {
+      display: block;
+      margin: 10px 0;
+    }
+    .main-nav a {
+      color: var(--text-main-color);
+      text-decoration: none;
+      padding: 8px 15px;
+      border: 1px solid transparent;
+      transition: all 0.3s ease;
+      display: block;
+    }
+    .main-nav a:hover, .main-nav a:focus {
+      background-color: var(--primary-light-color);
+      color: var(--text-light-color);
+      border-color: var(--primary-color);
+    }
+
+    .cta-button-nav {
+      background-color: var(--accent-color);
+      color: var(--text-light-color);
+      padding: 10px 20px;
+      border: 2px solid var(--accent-color);
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+      display: block;
+      width: fit-content;
+      margin: 15px auto 0;
+      text-align: center;
+      order: 4;
+    }
+    .cta-button-nav:hover {
+      background-color: var(--primary-dark-color);
+      border-color: var(--primary-dark-color);
+      color: var(--text-light-color);
+    }
+
+    .hamburger {
+      display: block; /* Always visible for mobile */
+      cursor: pointer;
+      font-size: 2em;
+      color: var(--text-main-color);
+      order: 1;
+      margin-right: 15px;
+    }
+
+    @media (min-width: 768px) {
+      .header-logo {
+        flex-grow: 0;
+        width: auto;
+        order: 2; /* Centered between nav links */
+        margin-bottom: 0;
+      }
+      .main-nav {
+        display: flex; /* Display as flex on larger screens */
+        justify-content: center;
+        flex-grow: 1;
+        width: auto;
+        order: 1; /* Left side */
+      }
+      .main-nav li {
+        display: inline-block;
+        margin: 0 10px;
+      }
+      .main-nav li:first-child { margin-left: 0; }
+      .main-nav li:last-child { margin-right: 0; }
+
+      .cta-button-nav {
+        order: 3; /* Right side */
+        margin: 0 0 0 20px;
+      }
+      .hamburger {
+        display: none; /* Hide hamburger on larger screens */
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .main-nav {
+         justify-content: flex-end; /* Push links to align with CTA on small headers */
+      }
+      .main-nav li {
+        margin: 0 15px;
+      }
+      .header-section .container {
+        justify-content: space-between;
+      }
+       .header-logo {
+        flex-grow: 0;
+        margin: 0;
+      }
+    }
+
+    /* Hero Section */
+    .hero {
+      background-color: var(--hero-bg-color);
+      color: var(--text-light-color);
+      text-align: center;
+      padding: var(--section-spacing) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)); /* Dark overlay for text readability */
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .hero h1 {
+      color: var(--text-light-color);
+      font-size: 2.8em;
+      margin-bottom: 20px;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+    .hero p {
+      font-size: 1.2em;
+      margin-bottom: 40px;
+      opacity: 0.9;
+    }
+    .hero-cta {
+      background-color: var(--accent-color);
+      color: var(--text-main-color);
+      padding: 18px 36px;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2em;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+      border-radius: var(--border-radius);
+    }
+    .hero-cta:hover {
+      background-color: var(--primary-dark-color);
+      transform: translateY(-3px);
+      color: var(--text-light-color);
+    }
+    .hero-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) brightness(0.6); /* Brutalist image effect */
+      z-index: 0;
+      transition: filter 0.5s ease;
+    }
+    .hero:hover .hero-image {
+        filter: grayscale(0%) brightness(0.8);
+    }
+
+    /* Services Section */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-top: 50px;
+    }
+    @media (min-width: 768px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4-column grid for desktop */
+      }
+    }
+
+    .service-card {
+      background-color: var(--surface-color);
+      padding: 30px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--primary-color); /* Thin border */
+      text-align: center;
+      transition: transform 0.3s ease; /* hoverEffect: scale(1.02) */
+      box-shadow: none; /* No shadow */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .service-card:hover {
+      transform: scale(1.02);
+      border-color: var(--secondary-color);
+    }
+    .service-card-icon {
+      width: 128px;
+      height: 128px;
+      border-radius: 50%; /* iconContainer: 50% border-radius (circle) */
+      background-color: var(--primary-light-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 25px;
+      overflow: hidden; /* Ensure image is clipped to circle */
+      border: 3px solid var(--primary-color);
+    }
+    .service-card-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%; /* Clip image inside */
+      filter: grayscale(100%);
+      transition: filter 0.3s ease;
+    }
+    .service-card:hover .service-card-icon img {
+        filter: grayscale(0%);
+    }
+
+    .service-card h3 {
+      font-size: 1.5em;
+      color: var(--primary-dark-color);
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+    .service-card p {
+      font-size: 0.95em;
+      color: var(--text-main-color);
+      flex-grow: 1; /* Allow content to push to bottom */
+    }
+
+    /* Approach Section (Editorial) */
+    .approach-section {
+      background-color: var(--primary-dark-color);
+      color: var(--text-light-color);
+      overflow: hidden; /* Clear floats */
+    }
+    .approach-section h2 {
+      text-align: center;
+      color: var(--accent-color);
+      margin-bottom: 60px;
+    }
+
+    .approach-content {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .approach-text-block {
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-left: 5px solid var(--accent-color);
+    }
+    .approach-text-block p {
+      font-family: 'Roboto Mono', monospace;
+      margin-bottom: 15px;
+      font-size: 1.1em;
+    }
+    .approach-image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 300px; /* Fixed height for image area on mobile */
+      border: 5px solid var(--secondary-color);
+      overflow: hidden;
+    }
+    .approach-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%) contrast(1.2);
+      transition: filter 0.5s ease-in-out;
+    }
+    .approach-image-wrapper:hover .approach-image {
+        filter: grayscale(0%) contrast(1);
+    }
+
+    @media (min-width: 768px) {
+      .approach-content {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+      .approach-text {
+        flex: 1;
+        padding-right: 40px;
+      }
+      .approach-image-wrapper {
+        flex: 1;
+        min-width: 40%;
+        height: auto; /* Auto height on larger screens */
+      }
+    }
+
+    /* Impact Section (Testimonial) */
+    .impact-section {
+      background-color: var(--surface-color);
+      text-align: center;
+    }
+    .testimonial-card {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: var(--text-light-color);
+      padding: 40px;
+      border-radius: var(--border-radius);
+      border: 2px solid var(--primary-color);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden; /* For pseudo-elements */
+      position: relative;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+    .testimonial-card::before {
+        content: '“';
+        font-family: 'Crimson Pro', serif;
+        font-size: 8em;
+        color: var(--primary-light-color);
+        position: absolute;
+        top: -30px;
+        left: 20px;
+        opacity: 0.2;
+        z-index: 0;
+    }
+
+    .testimonial-quote {
+      font-family: 'Crimson Pro', serif;
+      font-size: 2em;
+      font-style: italic;
+      color: var(--primary-dark-color);
+      margin-bottom: 30px;
+      line-height: 1.3;
+      position: relative;
+      z-index: 1;
+    }
+    .testimonial-author-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+    }
+    .testimonial-author-image {
+      width: 128px;
+      height: 128px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 4px solid var(--accent-color);
+      filter: grayscale(80%) brightness(0.8);
+      transition: filter 0.4s ease;
+    }
+    .testimonial-card:hover .testimonial-author-image {
+        filter: grayscale(0%) brightness(1);
+    }
+    .testimonial-author-name {
+      font-weight: bold;
+      font-size: 1.2em;
+      color: var(--text-main-color);
+      margin-bottom: 5px;
+    }
+    .testimonial-author-role {
+      color: var(--secondary-color);
+      font-size: 0.9em;
+      text-transform: uppercase;
+    }
+
+    /* Contact Footer */
+    .contact-footer {
+      background-color: var(--hero-bg-color); /* Dark stark background */
+      color: var(--text-light-color);
+      padding: var(--section-spacing) 0 40px 0;
+      text-align: center;
+      border-top: 8px solid var(--accent-color); /* Brutalist top border */
+    }
+    .contact-footer h2 {
+      font-family: 'Crimson Pro', serif;
+      color: var(--accent-color);
+      font-size: 2.2em;
+      margin-bottom: 20px;
+    }
+    .contact-footer p {
+      font-family: 'Roboto Mono', monospace;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+      opacity: 0.9;
+    }
+    .contact-footer .tagline {
+      font-style: italic;
+      margin-bottom: 30px;
+      font-size: 1.3em;
+      color: var(--primary-light-color);
+    }
+    .contact-info {
+      margin-bottom: 40px;
+    }
+    .contact-info a {
+      color: var(--primary-light-color);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 8px;
+      transition: color 0.3s ease;
+    }
+    .contact-info a:hover {
+      color: var(--accent-color);
+      text-decoration: underline;
+    }
+    .contact-cta-footer {
+      background-color: var(--accent-color);
+      color: var(--text-main-color);
+      padding: 18px 36px;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2em;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+      border-radius: var(--border-radius);
+      margin-bottom: 50px;
+    }
+    .contact-cta-footer:hover {
+      background-color: var(--primary-dark-color);
+      transform: translateY(-3px);
+      color: var(--text-light-color);
+    }
+
+    .footer-secondary-links {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .footer-secondary-links a {
+      color: var(--primary-light-color);
+      text-decoration: none;
+      font-size: 0.9em;
+    }
+    .footer-secondary-links a:hover {
+      color: var(--accent-color);
+      text-decoration: underline;
+    }
+    .copyright {
+      margin-top: 20px;
+      font-size: 0.85em;
+      color: var(--primary-light-color);
+      opacity: 0.7;
+    }
+
+    /* Cookie Consent */
+    .cookie-consent-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--primary-dark-color);
+      color: var(--text-light-color);
+      padding: 15px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9em;
+      z-index: 1000;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+    }
+    .cookie-consent-banner p {
+      margin: 0 0 10px 0;
+      padding-right: 20px;
+    }
+    .cookie-consent-banner button {
+      background-color: var(--accent-color);
+      color: var(--text-main-color);
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .cookie-consent-banner button:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-1px);
+    }
+    @media (min-width: 768px) {
+      .cookie-consent-banner {
+        flex-direction: row;
+      }
+      .cookie-consent-banner p {
+        margin: 0;
+        text-align: left;
+      }
+      .cookie-consent-banner button {
+        flex-shrink: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header-section">
+    <div class="container">
+      <button class="hamburger" aria-label="Toggle navigation">&#9776;</button>
+      <div class="header-logo">Saguaro Sync</div>
+      <nav>
+        <ul class="main-nav">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#approach">Approach</a></li>
+          <li><a href="#impact">Impact</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#contact" class="cta-button-nav">Start Project</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+<main>
+<style>
+  #saguarosync-terms-and-conditions {
+    padding-top: 7rem;
+  }
+</style>
+<section id="saguarosync-terms-and-conditions">
+  <h2 style="font-size: 2.25rem; font-weight: 700; margin-top: 0; margin-bottom: 2rem;">Terms and Conditions for Saguarosync</h2>
+
+  <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">Welcome to Saguarosync. These Terms and Conditions outline the rules and regulations for the use of our website, located at our online platform, and the services we provide. By accessing this website and utilizing our services, you accept these terms and conditions in full. Do not continue to use Saguarosync if you do not accept all of the terms and conditions stated on this page.</p>
+
+  <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">1. Definitions</h3>
+  <ul style="font-size: 1rem; margin-bottom: 1.5rem; list-style: disc; padding-left: 1.5rem;">
+    <li style="margin-bottom: 0.5rem;">"Company," "Our," "We," "Us" refers to Saguarosync, located at 110 Taylor Street, New York, New York, USA.</li>
+    <li style="margin-bottom: 0.5rem;">"Client," "You," "Your" refers to the person accessing this website and accepting the Company's terms and conditions.</li>
+    <li style="margin-bottom: 0.5rem;">"Service" or "Services" refers to the technology consulting services offered by Saguarosync, including cloud optimization, data analytics, custom software development, and digital transformation strategy.</li>
+    <li style="margin-bottom: 0.5rem;">"Website" refers to our online platform where our services are showcased.</li>
+  </ul>
+
+  <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">2. Intellectual Property Rights</h3>
+  <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">Unless otherwise stated, Saguarosync and/or its licensors own the intellectual property rights for all material on our website. All intellectual property rights are reserved. You may view and/or print pages from our online platform for your own personal use, subject to restrictions set in these terms and conditions.</p>
+  <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">You must not:</p>
+  <ul style="font-size: 1rem; margin-bottom: 1.5rem; list-style: disc; padding-left: 1.5rem;">
+    <li style="margin-bottom: 0.5rem;">Republish material from our website.</li>
+    <li style="margin-bottom: 0.5rem;">Sell, rent or sub-license material from our website.</li>
+    <li style="margin-bottom: 0.5rem;">Reproduce, duplicate or copy material from our website.</li>
+    <li style="margin-bottom: 0.5rem;">Redistribute content from Saguarosync (unless content is specifically made for redistribution).</li>
+  </ul>
+
+  <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">3. Use of Our Services</h3>
+  <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">Our website is designed to showcase our expertise and facilitate engagement with potential clients for our technology consulting services. Any information submitted through our contact forms or other communication channels on this site will be handled in accordance with our Privacy Policy. Engagement for specific services will be subject to a separate written agreement between Saguarosync and the client, detailing the scope of work, deliverables, timelines, and payment terms.</p>
+
+  <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">4. Disclaimer</h3>
+  <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">To the maximum extent permitted by applicable law, we exclude all representations, warranties and conditions relating to our website and the use of this website (including, without limitation, any warranties implied by law in respect of satisfactory quality, fitness for purpose and/or the use of reasonable care and skill). Nothing in this disclaimer will:</p>
+  <ul style="font-size: 1rem; margin-bottom: 1.5rem; list-style: disc; padding-left: 1.5rem;">
+    <li style="margin-bottom: 0.5rem;">Limit or exclude our or your liability for death or personal injury.</li>
+    <li style="margin-bottom: 0.5rem;">Limit or exclude our or your liability for fraud or fraudulent misrepresentation.</li>
+    <li style="margin-bottom: 0.5rem;">Limit any of our or your liabilities in any way that is not permitted under applicable law.</li>
+    <li style="margin-bottom: 0.5rem;">Exclude any of our or your liabilities that may not be excluded under applicable law.</li>
+  </ul>
+  <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">The limitations and exclusions of liability set out in this Section and elsewhere in this disclaimer: (a) are subject to the preceding paragraph; and (b) govern all liabilities arising under the disclaimer or in relation to the subject matter of this disclaimer, including liabilities arising in contract, in tort (including negligence) and for breach of statutory duty.</p>
+  <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">As long as the website and the information and services on the website are provided free of charge, we will not be liable for any loss or damage of any nature.</p>
+
+  <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">5. Third-Party Links</h3>
+  <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">Our website may contain links to third-party websites or services that are not owned or controlled by Saguarosync. Saguarosync has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third-party websites or services. You further acknowledge and agree that Saguarosync shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods or services available on or through any such websites or services.</p>
+
+  <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">6. Governing Law</h3>
+  <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">These Terms shall be governed and construed in accordance with the laws of New York, USA, without regard to its conflict of law provisions.</p>
+  <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect. These Terms constitute the entire agreement between us regarding our service, and supersede and replace any prior agreements we might have between us regarding the service.</p>
+
+  <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">7. Changes to These Terms and Conditions</h3>
+  <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">We reserve the right, at our sole discretion, to modify or replace these Terms and Conditions at any time. If a revision is material, we will try to provide at least 30 days notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.</p>
+  <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">By continuing to access or use our Service after those revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, please stop using the Service.</p>
+
+  <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">8. Contact Information</h3>
+  <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">If you have any questions about these Terms and Conditions, please contact us at:</p>
+  <p style="font-size: 1rem; margin-bottom: 0.5rem; font-weight: 600;">Saguarosync</p>
+  <p style="font-size: 1rem; margin-bottom: 0.5rem;">110 Taylor Street,</p>
+  <p style="font-size: 1rem; margin-bottom: 0.5rem;">New York, New York, 11249,</p>
+  <p style="font-size: 1rem; margin-bottom: 0.5rem;">USA.</p>
+</section>
+</main>
+<footer id="contact" class="contact-footer">
+    <div class="container">
+      <h2>Saguaro Sync</h2>
+      <p class="tagline">Systematize Your Success.</p>
+      <div class="contact-info">
+        <p>110 Taylor Street, New York, New York, 11249, USA</p>
+        <a href="tel:+14724825681">+1 (472) 482-5681</a>
+        <a href="mailto:info@DOMAIN_NAME_REPLACE">info@DOMAIN_NAME_REPLACE</a>
+      </div>
+      <a href="mailto:info@DOMAIN_NAME_REPLACE" class="contact-cta-footer">Initiate Consultation</a>
+      <div class="footer-secondary-links">
+        <a href="./privacy.html">Privacy Policy</a>
+        <a href="./tos.html">Terms of Service</a>
+      </div>
+      <p class="copyright">© 2024 Saguaro Sync. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div id="cookieConsentBanner" class="cookie-consent-banner" style="display: none;">
+    <p>We use essential cookies to make our site work. With your consent, we may also use non-essential cookies to improve user experience and analyze website traffic. Click "Accept" to agree to our use of cookies.</p>
+    <button id="acceptCookies">Accept</button>
+  </div>
+
+  <script>
+    // Hamburger menu functionality
+    document.querySelector('.hamburger').addEventListener('click', function() {
+      document.querySelector('.main-nav').classList.toggle('active');
+    });
+
+    // Cookie Consent Logic
+    const cookieBanner = document.getElementById('cookieConsentBanner');
+    const acceptButton = document.getElementById('acceptCookies');
+    const cookieName = 'consent_Saguaro Sync_cookies'; // Unique cookie name prefix
+
+    function setCookie(name, value, days) {
+      let expires = "";
+      if (days) {
+        let date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+      let nameEQ = name + "=";
+      let ca = document.cookie.split(';');
+      for(let i=0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+      }
+      return null;
+    }
+
+    if (!getCookie(cookieName)) {
+      cookieBanner.style.display = 'flex';
+    }
+
+    acceptButton.addEventListener('click', function() {
+      setCookie(cookieName, 'accepted', 365); // Store consent for 1 year
+      cookieBanner.style.display = 'none';
+    });
+  </script>
+</body>
+</html>

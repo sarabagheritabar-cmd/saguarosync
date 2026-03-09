@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saguaro Sync - Brutal Digital Transformation</title>
+  <link rel="icon" href="favicon.ico">
+  <style>
+    :root {
+      --primary-color: #6031cd;
+      --primary-light-color: #a28bd9;
+      --primary-dark-color: #43228f;
+      --secondary-color: #9e4bb3;
+      --accent-color: #a8d246;
+      --hero-bg-color: #1a1a2e;
+      --surface-color: #fbfbfb;
+      --text-main-color: #111111;
+      --text-light-color: #ffffff;
+      --border-radius: 16px;
+      --section-spacing: 80px;
+    }
+
+    /* Base Brutalist Styles */
+    body {
+      font-family: 'Roboto Mono', monospace;
+      color: var(--text-main-color);
+      margin: 0;
+      background-color: var(--surface-color);
+      line-height: 1.6;
+      font-weight: 400; /* bodyWeight */
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Crimson Pro', serif;
+      font-weight: 700; /* headingWeight */
+      color: var(--text-main-color);
+      margin-top: 0;
+      margin-bottom: 24px;
+    }
+
+    h1 { font-size: 3em; }
+    h2 { font-size: 2.5em; }
+    h3 { font-size: 2em; }
+    h4 { font-size: 1.5em; }
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    section {
+      padding: var(--section-spacing) 0;
+    }
+
+    /* Header */
+    .header-section {
+      background-color: var(--surface-color);
+      color: var(--text-main-color);
+      padding: 20px 0;
+      border-bottom: 8px solid var(--primary-dark-color); /* Brutalist thick bottom border */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+    .header-section .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .header-logo {
+      font-family: 'Crimson Pro', serif;
+      font-weight: 700;
+      font-size: 1.8em;
+      color: var(--text-main-color);
+      text-transform: uppercase;
+      flex-grow: 1;
+      text-align: center;
+      order: 2; /* Centered on mobile */
+      width: 100%; /* Take full width on mobile */
+      margin-bottom: 10px;
+    }
+
+    .main-nav {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: none; /* Hidden by default on mobile */
+      width: 100%;
+      order: 3;
+      text-align: center;
+    }
+    .main-nav.active {
+      display: block; /* Show when active */
+    }
+    .main-nav li {
+      display: block;
+      margin: 10px 0;
+    }
+    .main-nav a {
+      color: var(--text-main-color);
+      text-decoration: none;
+      padding: 8px 15px;
+      border: 1px solid transparent;
+      transition: all 0.3s ease;
+      display: block;
+    }
+    .main-nav a:hover, .main-nav a:focus {
+      background-color: var(--primary-light-color);
+      color: var(--text-light-color);
+      border-color: var(--primary-color);
+    }
+
+    .cta-button-nav {
+      background-color: var(--accent-color);
+      color: var(--text-light-color);
+      padding: 10px 20px;
+      border: 2px solid var(--accent-color);
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+      display: block;
+      width: fit-content;
+      margin: 15px auto 0;
+      text-align: center;
+      order: 4;
+    }
+    .cta-button-nav:hover {
+      background-color: var(--primary-dark-color);
+      border-color: var(--primary-dark-color);
+      color: var(--text-light-color);
+    }
+
+    .hamburger {
+      display: block; /* Always visible for mobile */
+      cursor: pointer;
+      font-size: 2em;
+      color: var(--text-main-color);
+      order: 1;
+      margin-right: 15px;
+    }
+
+    @media (min-width: 768px) {
+      .header-logo {
+        flex-grow: 0;
+        width: auto;
+        order: 2; /* Centered between nav links */
+        margin-bottom: 0;
+      }
+      .main-nav {
+        display: flex; /* Display as flex on larger screens */
+        justify-content: center;
+        flex-grow: 1;
+        width: auto;
+        order: 1; /* Left side */
+      }
+      .main-nav li {
+        display: inline-block;
+        margin: 0 10px;
+      }
+      .main-nav li:first-child { margin-left: 0; }
+      .main-nav li:last-child { margin-right: 0; }
+
+      .cta-button-nav {
+        order: 3; /* Right side */
+        margin: 0 0 0 20px;
+      }
+      .hamburger {
+        display: none; /* Hide hamburger on larger screens */
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .main-nav {
+         justify-content: flex-end; /* Push links to align with CTA on small headers */
+      }
+      .main-nav li {
+        margin: 0 15px;
+      }
+      .header-section .container {
+        justify-content: space-between;
+      }
+       .header-logo {
+        flex-grow: 0;
+        margin: 0;
+      }
+    }
+
+    /* Hero Section */
+    .hero {
+      background-color: var(--hero-bg-color);
+      color: var(--text-light-color);
+      text-align: center;
+      padding: var(--section-spacing) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)); /* Dark overlay for text readability */
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .hero h1 {
+      color: var(--text-light-color);
+      font-size: 2.8em;
+      margin-bottom: 20px;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+    .hero p {
+      font-size: 1.2em;
+      margin-bottom: 40px;
+      opacity: 0.9;
+    }
+    .hero-cta {
+      background-color: var(--accent-color);
+      color: var(--text-main-color);
+      padding: 18px 36px;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2em;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+      border-radius: var(--border-radius);
+    }
+    .hero-cta:hover {
+      background-color: var(--primary-dark-color);
+      transform: translateY(-3px);
+      color: var(--text-light-color);
+    }
+    .hero-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) brightness(0.6); /* Brutalist image effect */
+      z-index: 0;
+      transition: filter 0.5s ease;
+    }
+    .hero:hover .hero-image {
+        filter: grayscale(0%) brightness(0.8);
+    }
+
+    /* Services Section */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-top: 50px;
+    }
+    @media (min-width: 768px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4-column grid for desktop */
+      }
+    }
+
+    .service-card {
+      background-color: var(--surface-color);
+      padding: 30px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--primary-color); /* Thin border */
+      text-align: center;
+      transition: transform 0.3s ease; /* hoverEffect: scale(1.02) */
+      box-shadow: none; /* No shadow */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .service-card:hover {
+      transform: scale(1.02);
+      border-color: var(--secondary-color);
+    }
+    .service-card-icon {
+      width: 128px;
+      height: 128px;
+      border-radius: 50%; /* iconContainer: 50% border-radius (circle) */
+      background-color: var(--primary-light-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 25px;
+      overflow: hidden; /* Ensure image is clipped to circle */
+      border: 3px solid var(--primary-color);
+    }
+    .service-card-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%; /* Clip image inside */
+      filter: grayscale(100%);
+      transition: filter 0.3s ease;
+    }
+    .service-card:hover .service-card-icon img {
+        filter: grayscale(0%);
+    }
+
+    .service-card h3 {
+      font-size: 1.5em;
+      color: var(--primary-dark-color);
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+    .service-card p {
+      font-size: 0.95em;
+      color: var(--text-main-color);
+      flex-grow: 1; /* Allow content to push to bottom */
+    }
+
+    /* Approach Section (Editorial) */
+    .approach-section {
+      background-color: var(--primary-dark-color);
+      color: var(--text-light-color);
+      overflow: hidden; /* Clear floats */
+    }
+    .approach-section h2 {
+      text-align: center;
+      color: var(--accent-color);
+      margin-bottom: 60px;
+    }
+
+    .approach-content {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .approach-text-block {
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-left: 5px solid var(--accent-color);
+    }
+    .approach-text-block p {
+      font-family: 'Roboto Mono', monospace;
+      margin-bottom: 15px;
+      font-size: 1.1em;
+    }
+    .approach-image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 300px; /* Fixed height for image area on mobile */
+      border: 5px solid var(--secondary-color);
+      overflow: hidden;
+    }
+    .approach-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%) contrast(1.2);
+      transition: filter 0.5s ease-in-out;
+    }
+    .approach-image-wrapper:hover .approach-image {
+        filter: grayscale(0%) contrast(1);
+    }
+
+    @media (min-width: 768px) {
+      .approach-content {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+      .approach-text {
+        flex: 1;
+        padding-right: 40px;
+      }
+      .approach-image-wrapper {
+        flex: 1;
+        min-width: 40%;
+        height: auto; /* Auto height on larger screens */
+      }
+    }
+
+    /* Impact Section (Testimonial) */
+    .impact-section {
+      background-color: var(--surface-color);
+      text-align: center;
+    }
+    .testimonial-card {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: var(--text-light-color);
+      padding: 40px;
+      border-radius: var(--border-radius);
+      border: 2px solid var(--primary-color);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden; /* For pseudo-elements */
+      position: relative;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+    .testimonial-card::before {
+        content: '“';
+        font-family: 'Crimson Pro', serif;
+        font-size: 8em;
+        color: var(--primary-light-color);
+        position: absolute;
+        top: -30px;
+        left: 20px;
+        opacity: 0.2;
+        z-index: 0;
+    }
+
+    .testimonial-quote {
+      font-family: 'Crimson Pro', serif;
+      font-size: 2em;
+      font-style: italic;
+      color: var(--primary-dark-color);
+      margin-bottom: 30px;
+      line-height: 1.3;
+      position: relative;
+      z-index: 1;
+    }
+    .testimonial-author-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+    }
+    .testimonial-author-image {
+      width: 128px;
+      height: 128px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 4px solid var(--accent-color);
+      filter: grayscale(80%) brightness(0.8);
+      transition: filter 0.4s ease;
+    }
+    .testimonial-card:hover .testimonial-author-image {
+        filter: grayscale(0%) brightness(1);
+    }
+    .testimonial-author-name {
+      font-weight: bold;
+      font-size: 1.2em;
+      color: var(--text-main-color);
+      margin-bottom: 5px;
+    }
+    .testimonial-author-role {
+      color: var(--secondary-color);
+      font-size: 0.9em;
+      text-transform: uppercase;
+    }
+
+    /* Contact Footer */
+    .contact-footer {
+      background-color: var(--hero-bg-color); /* Dark stark background */
+      color: var(--text-light-color);
+      padding: var(--section-spacing) 0 40px 0;
+      text-align: center;
+      border-top: 8px solid var(--accent-color); /* Brutalist top border */
+    }
+    .contact-footer h2 {
+      font-family: 'Crimson Pro', serif;
+      color: var(--accent-color);
+      font-size: 2.2em;
+      margin-bottom: 20px;
+    }
+    .contact-footer p {
+      font-family: 'Roboto Mono', monospace;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+      opacity: 0.9;
+    }
+    .contact-footer .tagline {
+      font-style: italic;
+      margin-bottom: 30px;
+      font-size: 1.3em;
+      color: var(--primary-light-color);
+    }
+    .contact-info {
+      margin-bottom: 40px;
+    }
+    .contact-info a {
+      color: var(--primary-light-color);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 8px;
+      transition: color 0.3s ease;
+    }
+    .contact-info a:hover {
+      color: var(--accent-color);
+      text-decoration: underline;
+    }
+    .contact-cta-footer {
+      background-color: var(--accent-color);
+      color: var(--text-main-color);
+      padding: 18px 36px;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2em;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+      border-radius: var(--border-radius);
+      margin-bottom: 50px;
+    }
+    .contact-cta-footer:hover {
+      background-color: var(--primary-dark-color);
+      transform: translateY(-3px);
+      color: var(--text-light-color);
+    }
+
+    .footer-secondary-links {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .footer-secondary-links a {
+      color: var(--primary-light-color);
+      text-decoration: none;
+      font-size: 0.9em;
+    }
+    .footer-secondary-links a:hover {
+      color: var(--accent-color);
+      text-decoration: underline;
+    }
+    .copyright {
+      margin-top: 20px;
+      font-size: 0.85em;
+      color: var(--primary-light-color);
+      opacity: 0.7;
+    }
+
+    /* Cookie Consent */
+    .cookie-consent-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--primary-dark-color);
+      color: var(--text-light-color);
+      padding: 15px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9em;
+      z-index: 1000;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+    }
+    .cookie-consent-banner p {
+      margin: 0 0 10px 0;
+      padding-right: 20px;
+    }
+    .cookie-consent-banner button {
+      background-color: var(--accent-color);
+      color: var(--text-main-color);
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .cookie-consent-banner button:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-1px);
+    }
+    @media (min-width: 768px) {
+      .cookie-consent-banner {
+        flex-direction: row;
+      }
+      .cookie-consent-banner p {
+        margin: 0;
+        text-align: left;
+      }
+      .cookie-consent-banner button {
+        flex-shrink: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header-section">
+    <div class="container">
+      <button class="hamburger" aria-label="Toggle navigation">&#9776;</button>
+      <div class="header-logo">Saguaro Sync</div>
+      <nav>
+        <ul class="main-nav">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#approach">Approach</a></li>
+          <li><a href="#impact">Impact</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#contact" class="cta-button-nav">Start Project</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+<main>
+<style>
+  #privacy-policy-section {
+    padding-top: 7rem;
+  }
+</style>
+<section id="privacy-policy-section">
+    <h2 style="font-size: 1.875rem; font-weight: 700; margin-bottom: 1.5rem;">Privacy Policy</h2>
+    <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 1rem;">Saguaro Sync ("we," "our," or "us") is committed to protecting the privacy of visitors and clients to our online platform. This Privacy Policy outlines how we collect, use, disclose, and protect information gathered through our site, which showcases our technology consulting services, including cloud optimization, data analytics, custom software development, and digital transformation strategy.</p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; margin-top: 1.5rem;">1. Information We Collect</h3>
+    <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 1rem;">We collect various types of information to provide and improve our services, and to better understand the needs of our prospective clients.</p>
+    <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem;">
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;"><strong>Personal Data:</strong> This includes information you voluntarily provide when you interact with us, such as your name, email address, phone number, company name, and job title. This might occur when you fill out a contact form, request a consultation, or subscribe to our newsletters.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;"><strong>Usage Data:</strong> We automatically collect information about how our site is accessed and used. This Usage Data may include your computer's Internet Protocol (IP) address, browser type, browser version, the pages of our site that you visit, the time and date of your visit, the time spent on those pages, unique device identifiers, and other diagnostic data.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;"><strong>Cookies and Tracking Technologies:</strong> We use cookies and similar tracking technologies to track the activity on our site and hold certain information. Cookies are files with a small amount of data that may include an anonymous unique identifier. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our site.</li>
+    </ul>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; margin-top: 1.5rem;">2. How We Use Your Information</h3>
+    <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 1rem;">We use the collected data for various purposes to serve you better:</p>
+    <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem;">
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;">To provide and maintain our site and services.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;">To respond to your inquiries and provide requested information about our cloud optimization, data analytics, custom software development, and digital transformation strategy services.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;">To improve and personalize your experience on our site.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;">To understand how our site is used and to analyze trends for service improvement.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;">To detect, prevent, and address technical issues.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;">To send you relevant marketing and promotional communications about our services, where you have consented to receive such communications.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;">To comply with legal obligations.</li>
+    </ul>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; margin-top: 1.5rem;">3. Legal Basis for Processing Personal Data Under GDPR</h3>
+    <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 1rem;">If you are from the European Economic Area (EEA), our legal basis for collecting and using the personal information described in this Privacy Policy depends on the Personal Data we collect and the specific context in which we collect it:</p>
+    <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem;">
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;">We need to perform a contract with you.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;">You have given us explicit permission to do so.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;">The processing is in our legitimate interests and it's not overridden by your rights.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;">To comply with the law.</li>
+    </ul>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; margin-top: 1.5rem;">4. Disclosure of Your Information</h3>
+    <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 1rem;">We may disclose your personal information in the following situations:</p>
+    <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem;">
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;"><strong>Service Providers:</strong> We may employ third-party companies and individuals to facilitate our site, provide the site on our behalf, perform site-related services, or assist us in analyzing how our site is used. These third parties have access to your Personal Data only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;"><strong>Business Transfer:</strong> If we are involved in a merger, acquisition or asset sale, your Personal Data may be transferred. We will provide notice before your Personal Data is transferred and becomes subject to a different Privacy Policy.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;"><strong>Legal Requirements:</strong> We may disclose your Personal Data in the good faith belief that such action is necessary to:
+            <ul style="list-style: circle; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.25rem;">Comply with a legal obligation.</li>
+                <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.25rem;">Protect and defend the rights or property of Saguaro Sync.</li>
+                <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.25rem;">Prevent or investigate possible wrongdoing in connection with the site.</li>
+                <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.25rem;">Protect the personal safety of users of the site or the public.</li>
+                <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.25rem;">Protect against legal liability.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; margin-top: 1.5rem;">5. Security of Data</h3>
+    <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 1rem;">The security of your data is paramount to us. We implement a variety of security measures to maintain the safety of your personal information when you enter, submit, or access your personal information. However, no method of transmission over the Internet or method of electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your Personal Data, we cannot guarantee its absolute security.</p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; margin-top: 1.5rem;">6. Data Retention</h3>
+    <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 1rem;">We will retain your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.</p>
+    <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 1rem;">We will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period, except when this data is used to strengthen the security or to improve the functionality of our site, or we are legally obligated to retain this data for longer periods.</p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; margin-top: 1.5rem;">7. Your Data Protection Rights Under GDPR (If within EEA)</h3>
+    <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 1rem;">If you are a resident of the European Economic Area (EEA), you have certain data protection rights. We aim to take reasonable steps to allow you to correct, amend, delete, or limit the use of your Personal Data.</p>
+    <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem;">
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;">The right to access, update or to delete the information we have on you.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;">The right of rectification.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;">The right to object.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;">The right of restriction.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;">The right to data portability.</li>
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;">The right to withdraw consent.</li>
+    </ul>
+    <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 1rem;">Please note that we may ask you to verify your identity before responding to such requests.</p>
+    <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 1rem;">You have the right to complain to a Data Protection Authority about our collection and use of your Personal Data. For more information, please contact your local data protection authority in the European Economic Area (EEA).</p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; margin-top: 1.5rem;">8. Links to Other Sites</h3>
+    <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 1rem;">Our site may contain links to other sites that are not operated by us. If you click on a third-party link, you will be directed to that third party's site. We strongly advise you to review the Privacy Policy of every site you visit. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.</p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; margin-top: 1.5rem;">9. Children's Privacy</h3>
+    <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 1rem;">Our site does not address anyone under the age of 18 ("Children"). We do not knowingly collect personally identifiable information from anyone under the age of 18. If you are a parent or guardian and you are aware that your Children has provided us with Personal Data, please contact us. If we become aware that we have collected Personal Data from children without verification of parental consent, we take steps to remove that information from our servers.</p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; margin-top: 1.5rem;">10. Changes to This Privacy Policy</h3>
+    <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 1rem;">We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. We will let you know via email and/or a prominent notice on our site, prior to the change becoming effective and update the "last updated" date at the top of this Privacy Policy. You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; margin-top: 1.5rem;">11. Contact Us</h3>
+    <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 1rem;">If you have any questions about this Privacy Policy, please contact us:</p>
+    <ul style="list-style: none; padding-left: 0; margin-bottom: 1rem;">
+        <li style="font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem;"><strong>By mail:</strong> 110 Taylor Street, New York, New York, 11249, USA</li>
+    </ul>
+</section>
+</main>
+<footer id="contact" class="contact-footer">
+    <div class="container">
+      <h2>Saguaro Sync</h2>
+      <p class="tagline">Systematize Your Success.</p>
+      <div class="contact-info">
+        <p>110 Taylor Street, New York, New York, 11249, USA</p>
+        <a href="tel:+14724825681">+1 (472) 482-5681</a>
+        <a href="mailto:info@DOMAIN_NAME_REPLACE">info@DOMAIN_NAME_REPLACE</a>
+      </div>
+      <a href="mailto:info@DOMAIN_NAME_REPLACE" class="contact-cta-footer">Initiate Consultation</a>
+      <div class="footer-secondary-links">
+        <a href="./privacy.html">Privacy Policy</a>
+        <a href="./tos.html">Terms of Service</a>
+      </div>
+      <p class="copyright">© 2024 Saguaro Sync. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div id="cookieConsentBanner" class="cookie-consent-banner" style="display: none;">
+    <p>We use essential cookies to make our site work. With your consent, we may also use non-essential cookies to improve user experience and analyze website traffic. Click "Accept" to agree to our use of cookies.</p>
+    <button id="acceptCookies">Accept</button>
+  </div>
+
+  <script>
+    // Hamburger menu functionality
+    document.querySelector('.hamburger').addEventListener('click', function() {
+      document.querySelector('.main-nav').classList.toggle('active');
+    });
+
+    // Cookie Consent Logic
+    const cookieBanner = document.getElementById('cookieConsentBanner');
+    const acceptButton = document.getElementById('acceptCookies');
+    const cookieName = 'consent_Saguaro Sync_cookies'; // Unique cookie name prefix
+
+    function setCookie(name, value, days) {
+      let expires = "";
+      if (days) {
+        let date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+      let nameEQ = name + "=";
+      let ca = document.cookie.split(';');
+      for(let i=0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+      }
+      return null;
+    }
+
+    if (!getCookie(cookieName)) {
+      cookieBanner.style.display = 'flex';
+    }
+
+    acceptButton.addEventListener('click', function() {
+      setCookie(cookieName, 'accepted', 365); // Store consent for 1 year
+      cookieBanner.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
